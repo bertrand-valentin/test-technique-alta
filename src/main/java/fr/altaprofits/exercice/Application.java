@@ -1,19 +1,17 @@
 package fr.altaprofits.exercice;
 
-import fr.altaprofits.exercice.vehicule.Avion;
-import fr.altaprofits.exercice.vehicule.Helicoptere;
-import fr.altaprofits.exercice.vehicule.JetSki;
-import fr.altaprofits.exercice.vehicule.Moto;
+import fr.altaprofits.exercice.vehicule.TypeDeVehicule;
+import fr.altaprofits.exercice.vehicule.Vehicule;
 
 public class Application {
     public static void main(String[] args) {
         Hangar hangar = new Hangar();
 
-        Moto moto1 = new Moto();
-        Avion avion1 = new Avion();
-        Avion avion2 = new Avion();
-        Helicoptere helico1 = new Helicoptere();
-        JetSki jetSki1 = new JetSki();
+        Vehicule moto1 = new Vehicule(TypeDeVehicule.MOTO);
+        Vehicule avion1 = new Vehicule(TypeDeVehicule.AVION);
+        Vehicule avion2 = new Vehicule(TypeDeVehicule.AVION);
+        Vehicule helico1 = new Vehicule(TypeDeVehicule.HELICOPTERE);
+        Vehicule jetSki1 = new Vehicule(TypeDeVehicule.JETSKI);
 
         hangar.entre(moto1);
         hangar.entre(avion1);
@@ -23,10 +21,10 @@ public class Application {
 
         hangar.imprimerToutDansConsole();
 
-        System.out.println("Nombre de véhicule dans le hangar : " + hangar.nombreDeVehiculeDansHangar());
-        System.out.println("Nombre de véhicule dans l'aéroport : " + hangar.nombreDeVehiculesDansAeroport());
-        System.out.println("Nombre de véhicule dans le garage : " + hangar.nombreDeVehiculesDansGarage());
-        System.out.println("Nombre de véhicule dans le port : " + hangar.nombreDeVehiculeDansPort());
+        System.out.println("Nombre de vï¿½hicule dans le hangar : " + hangar.nombreDeVehiculeDansHangar());
+        System.out.println("Nombre de vï¿½hicule dans l'aï¿½roport : " + hangar.nombreDeVehiculesDansAeroport());
+        System.out.println("Nombre de vï¿½hicule dans le garage : " + hangar.nombreDeVehiculesDansGarage());
+        System.out.println("Nombre de vï¿½hicule dans le port : " + hangar.nombreDeVehiculeDansPort());
 
         avion1.seDeplace(10, 30);
         avion1.seDeplace(30, 60);
