@@ -1,6 +1,7 @@
-package fr.altaprofits.exercice;
+package fr.altaprofits.exercice.Batiments;
 
-import fr.altaprofits.exercice.vehicule.*;
+import fr.altaprofits.exercice.Batiment;
+import fr.altaprofits.exercice.vehicules.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -11,7 +12,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.stream.Stream;
 
-public class Hangar {
+public class Hangar implements Batiment {
 
 	private Map<TypeDeVehicule, HashSet<Vehicule>> hangar = new HashMap<>();
 
@@ -25,28 +26,28 @@ public class Hangar {
 		hangar.get(vehicule.getType()).add(vehicule);
 	}
 
-	public int nombreDeVehiculesDansAeroport() {
+	private int nombreDeVehiculesDansAeroport() {
 		return Stream.of(TypeDeVehicule.values())
-				.filter(vehiculeType -> vehiculeType.peutVoler() && !vehiculeType.peutNaviguer())
+				.filter(vehiculeType -> vehiculeType.seDéplaceDansLAir() && !vehiculeType.seDéplaceSurLEau())
 				.map(typeDeVehicule -> hangar.get(typeDeVehicule).size())
 				.reduce(0, Integer::sum);
 	}
 
-	public int nombreDeVehiculesDansGarage() {
+	private int nombreDeVehiculesDansGarage() {
 		return Stream.of(TypeDeVehicule.values())
-				.filter(TypeDeVehicule::peutRouler)
+				.filter(TypeDeVehicule::seDéplaceSurTerre)
 				.map(typeDeVehicule -> hangar.get(typeDeVehicule).size())
 				.reduce(0, Integer::sum);
 	}
 
-	public int nombreDeVehiculeDansPort() {
+	private int nombreDeVehiculeDansPort() {
 		return Stream.of(TypeDeVehicule.values())
-				.filter(TypeDeVehicule::peutNaviguer)
+				.filter(TypeDeVehicule::seDéplaceSurLEau)
 				.map(typeDeVehicule -> hangar.get(typeDeVehicule).size())
 				.reduce(0, Integer::sum);
 	}
 
-	public int nombreDeVehiculeDansHangar() {
+	private int nombreDeVehiculeDansHangar() {
 		return nombreDeVehiculeDansPort() + nombreDeVehiculesDansAeroport() + nombreDeVehiculesDansGarage();
 	}
 
@@ -73,5 +74,25 @@ public class Hangar {
 				this.imprimerDansFichier(vehicule, f);
 			}
 		}
+	}
+
+	@Override
+	public int nombreDAeriens() {
+		return nombreDeVehiculesDansAeroport();
+	}
+
+	@Override
+	public int nombreDeMarins() {
+		return nombreDeVehiculeDansPort();
+	}
+
+	@Override
+	public int nombreDeTerrestres() {
+		return nombreDeVehiculesDansGarage();
+	}
+
+	@Override
+	public int nombreTotal() {
+		return nombreDeVehiculeDansHangar();
 	}
 }

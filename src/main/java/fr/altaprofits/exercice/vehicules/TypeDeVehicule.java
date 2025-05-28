@@ -1,6 +1,8 @@
-package fr.altaprofits.exercice.vehicule;
+package fr.altaprofits.exercice.vehicules;
 
-public enum TypeDeVehicule {
+import fr.altaprofits.exercice.Déplacement;
+
+public enum TypeDeVehicule implements Déplacement {
     AVION (true,false,false),
     BATEAU(false,true,false),
     HELICOPTERE(true,false,false),
@@ -19,15 +21,18 @@ public enum TypeDeVehicule {
         this.roule = roule;
     }
 
-    public boolean peutVoler() {
-        return vole;
+    @Override
+    public boolean seDéplaceSurTerre() {
+        return roule;
     }
 
-    public boolean peutNaviguer() {
+    @Override
+    public boolean seDéplaceSurLEau() {
         return navigue;
     }
 
-    public boolean peutRouler() {
-        return roule;
+    @Override
+    public boolean seDéplaceDansLAir() {
+        return vole;
     }
 }

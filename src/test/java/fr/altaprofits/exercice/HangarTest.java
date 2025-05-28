@@ -1,7 +1,8 @@
 package fr.altaprofits.exercice;
 
-import fr.altaprofits.exercice.vehicule.TypeDeVehicule;
-import fr.altaprofits.exercice.vehicule.Vehicule;
+import fr.altaprofits.exercice.Batiments.Hangar;
+import fr.altaprofits.exercice.vehicules.TypeDeVehicule;
+import fr.altaprofits.exercice.vehicules.Vehicule;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,7 @@ public class HangarTest {
         Hangar hangar = new Hangar();
         Vehicule vehicule = new Vehicule(type);
         hangar.entre(vehicule);
-        assertEquals(1, hangar.nombreDeVehiculeDansHangar());
+        assertEquals(1, hangar.nombreTotal());
     }
 
     @Test
@@ -46,21 +47,21 @@ public class HangarTest {
         }
 
         long nombreThéoriqueAéroport = Stream.of(TypeDeVehicule.values())
-                .filter(vehicule -> vehicule.peutVoler() && !vehicule.peutNaviguer())
+                .filter(vehicule -> vehicule.seDéplaceDansLAir() && !vehicule.seDéplaceSurLEau())
                 .count();
 
         long nombreThéoriquePort = Stream.of(TypeDeVehicule.values())
-                .filter(TypeDeVehicule::peutNaviguer)
+                .filter(TypeDeVehicule::seDéplaceSurLEau)
                 .count();
 
         long nombreThéoriqueGarage = Stream.of(TypeDeVehicule.values())
-                .filter(TypeDeVehicule::peutRouler)
+                .filter(TypeDeVehicule::seDéplaceSurTerre)
                 .count();
 
-        assertEquals(TypeDeVehicule.values().length, hangar.nombreDeVehiculeDansHangar());
-        assertEquals(nombreThéoriqueAéroport, hangar.nombreDeVehiculesDansAeroport());
-        assertEquals(nombreThéoriquePort, hangar.nombreDeVehiculeDansPort());
-        assertEquals(nombreThéoriqueGarage, hangar.nombreDeVehiculesDansGarage());
+        assertEquals(TypeDeVehicule.values().length, hangar.nombreTotal());
+        assertEquals(nombreThéoriqueAéroport, hangar.nombreDAeriens());
+        assertEquals(nombreThéoriquePort, hangar.nombreDeMarins());
+        assertEquals(nombreThéoriqueGarage, hangar.nombreDeTerrestres());
     }
 
     @ParameterizedTest
