@@ -18,13 +18,13 @@ public class Vehicule {
     }
 
     public void seDeplace(int x, int y) {
-        Point destination = new Point(x,y);
-        if (this.type.peutNaviguer()) {
-            navigue(destination);
+        Point destination = new Point(x,y); //KISS, mais éventuellement améliorable pour prise en charge de plusieurs modes de déplacement
+        if (this.type.peutVoler()) {
+            vole(destination);
         } else if (this.type.peutRouler()) {
             roule(destination);
-        } else if (this.type.peutVoler()) {
-            vole(destination);
+        } else if (this.type.peutNaviguer()) {
+            navigue(destination);
         } else {
             System.out.printf("Exception personnalisée à intégrer : Véhicule de type %s (Ref : %s), aurait aimé se déplacer de la position %s vers %s\n", type.name().toLowerCase(), reference, position, destination);
         }

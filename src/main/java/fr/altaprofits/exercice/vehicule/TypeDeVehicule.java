@@ -6,7 +6,8 @@ public enum TypeDeVehicule {
     HELICOPTERE(true,false,false),
     JETSKI(false,true,false),
     MOTO(false,false,true),
-    VOITURE(false,false,true);
+    VOITURE(false,false,true),
+    HYDRAVION(true,true,false);
 
     private final boolean vole;
     private final boolean navigue;

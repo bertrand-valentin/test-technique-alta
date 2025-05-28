@@ -27,7 +27,7 @@ public class Hangar {
 
 	public int nombreDeVehiculesDansAeroport() {
 		return Stream.of(TypeDeVehicule.values())
-				.filter(TypeDeVehicule::peutVoler)
+				.filter(vehiculeType -> vehiculeType.peutVoler() && !vehiculeType.peutNaviguer())
 				.map(typeDeVehicule -> hangar.get(typeDeVehicule).size())
 				.reduce(0, Integer::sum);
 	}
